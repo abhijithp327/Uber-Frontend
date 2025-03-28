@@ -23,38 +23,41 @@ const UserSignup = () => {
                 <form className='flex flex-col gap-4 mt-6' onSubmit={handleSignup}>
                     <h2 className='text-xl font-bold'>Let's Get Started</h2>
 
-                    <div className='flex flex-col gap-1'>
-                        <label className='text-sm font-medium' htmlFor="email">First Name</label>
-                        <input
-                            className='bg-gray-100 px-4 py-2 rounded-md'
-                            type="text"
-                            name="firstname"
-                            id="firstname"
-                            value={firstname}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            placeholder='Enter your First Name'
-                            required
-                        />
-                    </div>
+                    <div className='w-1/2 flex items-center justify-between gap-3'>
 
-                    <div className='flex flex-col gap-1'>
-                        <label className='text-sm font-medium' htmlFor="email">Last Name</label>
-                        <input
-                            className='bg-gray-100 px-4 py-2 rounded-md'
-                            type="text"
-                            name="lastname"
-                            id="lastname"
-                            value={lastname}
-                            onChange={(e) => setLastName(e.target.value)}
-                            placeholder='Enter your Last Name'
-                            required
-                        />
+                        <div className='flex flex-col gap-1'>
+                            <label className='text-sm font-medium' htmlFor="email">First Name</label>
+                            <input
+                                className='bg-gray-100 px-4 py-2 rounded-md w-[160px] placeholder:text-sm'
+                                type="text"
+                                name="firstname"
+                                id="firstname"
+                                value={firstname}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                placeholder='Enter First Name'
+                                required
+                            />
+                        </div>
+
+                        <div className='flex flex-col gap-1'>
+                            <label className='text-sm font-medium' htmlFor="email">Last Name</label>
+                            <input
+                                className='bg-gray-100 px-4 py-2 rounded-md w-[160px] placeholder:text-sm'
+                                type="text"
+                                name="lastname"
+                                id="lastname"
+                                value={lastname}
+                                onChange={(e) => setLastName(e.target.value)}
+                                placeholder='Enter Last Name'
+                                required
+                            />
+                        </div>
                     </div>
 
                     <div className='flex flex-col gap-1'>
                         <label className='text-sm font-medium' htmlFor="email">Email</label>
                         <input
-                            className='bg-gray-100 px-4 py-2 rounded-md'
+                            className='bg-gray-100 px-4 py-2 rounded-md placeholder:text-sm'
                             type="email"
                             name="email"
                             id="email"
@@ -67,7 +70,7 @@ const UserSignup = () => {
                     <div className='flex flex-col gap-1'>
                         <label className='text-sm font-medium' htmlFor="password">Password</label>
                         <input
-                            className='bg-gray-100 px-4 py-2 rounded-md'
+                            className='bg-gray-100 px-4 py-2 rounded-md placeholder:text-sm'
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -79,12 +82,12 @@ const UserSignup = () => {
                     </div>
                     <button className='w-full mt-2 bg-black text-white font-medium py-2 rounded' type='submit'>Login</button>
 
-                    <Link to={'/sign-up'}><p className='text-sm text-center'>Don't have an account? <span className='font-bold text-black'>Sign-up</span></p></Link>
+                    <Link to={'/login'}><p className='text-sm text-center'>Already have an account? <span className='font-bold text-black'>Login</span></p></Link>
                 </form>
             </div>
 
             <div>
-                <Link to={'/captain-login'} className='flex items-center justify-center w-full bg-green-600 text-white font-medium py-2 rounded' type='submit'>Sign-in as Captain</Link>
+                <Link to={'/captain-login'} className='flex items-center justify-center w-full bg-green-600 text-white font-medium py-2 rounded' type='submit'>Login as a Captain</Link>
             </div>
 
 
