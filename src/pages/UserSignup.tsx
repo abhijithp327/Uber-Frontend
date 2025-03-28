@@ -82,14 +82,18 @@ const UserSignup = () => {
                     </div>
                     <button className='w-full mt-2 bg-black text-white font-medium py-2 rounded' type='submit'>Login</button>
 
-                    <Link to={'/login'}><p className='text-sm text-center'>Already have an account? <span className='font-bold text-black'>Login</span></p></Link>
+                    <Link to={'/login'}><p className='text-sm text-center'>Already have an account? <span className='font-bold text-black'>Login here</span></p></Link>
                 </form>
             </div>
 
-            <div>
+            {/* <div>
                 <Link to={'/captain-login'} className='flex items-center justify-center w-full bg-green-600 text-white font-medium py-2 rounded' type='submit'>Login as a Captain</Link>
-            </div>
+            </div> */}
 
+            <div>
+                <p className='text-[10px] leading-tight'>This site is protected by reCAPTCHA and the <span className='underline'>Google Privacy
+                    Policy</span> and <span className='underline'>Terms of Service apply</span>.</p>
+            </div>
 
         </div>
     );

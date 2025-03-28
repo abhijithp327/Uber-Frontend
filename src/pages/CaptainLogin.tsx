@@ -23,7 +23,7 @@ const CaptainLogin = () => {
                 <div className='flex flex-col gap-1'>
                     <label className='text-sm font-medium' htmlFor="email">Email</label>
                     <input
-                        className='bg-gray-100 px-4 py-2 rounded-md'
+                        className='bg-gray-100 px-4 py-2 rounded-md placeholder:text-sm'
                         type="email"
                         name="email"
                         id="email"
@@ -36,7 +36,7 @@ const CaptainLogin = () => {
                 <div className='flex flex-col gap-1'>
                     <label className='text-sm font-medium' htmlFor="password">Password</label>
                     <input
-                        className='bg-gray-100 px-4 py-2 rounded-md'
+                        className='bg-gray-100 px-4 py-2 rounded-md placeholder:text-sm'
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
