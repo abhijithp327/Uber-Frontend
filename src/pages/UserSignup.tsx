@@ -12,14 +12,13 @@ const UserSignup = () => {
     const navigate = useNavigate();
 
     const { user, setUser } = useUserContext();
-    console.log('user context: ', user);
+    
 
 
     const [firstname, setFirstName] = React.useState<string>('');
     const [lastname, setLastName] = React.useState<string>('');
     const [email, setEmail] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
-    const [data, setData] = React.useState({});
 
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,7 +35,7 @@ const UserSignup = () => {
         console.log('response: ', response);
         if (response.status === 201) {
             const data = response.data;
-            setUser(data?.result?.newUser);
+            setUser(data?.result);
             navigate('/home');
         }
     };
