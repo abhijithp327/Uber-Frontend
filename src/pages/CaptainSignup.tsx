@@ -79,7 +79,7 @@ const CaptainSignup = () => {
               required
             />
           </div>
-          <button className='w-full mt-2 bg-black text-white font-medium py-2 rounded' type='submit'>Login</button>
+          <button className='w-full mt-2 bg-black text-white font-medium py-2 rounded' type='submit'>Sign Up</button>
 
           <Link to={'/captain-login'}><p className='text-sm text-center'>Already have an account? <span className='font-bold text-black'>Login here</span></p></Link>
         </form>

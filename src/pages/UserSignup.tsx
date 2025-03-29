@@ -1,7 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import {  useUserContext } from "../context/UserContext";
+
+
 
 const UserSignup = () => {
+
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+
+    const navigate = useNavigate();
+
+    const { user, setUser } = useUserContext();
+    console.log('user context: ', user);
+
 
     const [firstname, setFirstName] = React.useState<string>('');
     const [lastname, setLastName] = React.useState<string>('');
@@ -11,8 +23,24 @@ const UserSignup = () => {
 
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setData({ email, password }); // State update (asynchronous)
+        const newUser = {
+            fullname: {
+                firstname,
+                lastname
+            },
+            email,
+            password
+        };
+
+        const response = await axios.post(`${baseUrl}/user/register`, newUser);
+        console.log('response: ', response);
+        if (response.status === 201) {
+            const data = response.data;
+            setUser(data?.result?.newUser);
+            navigate('/home');
+        }
     };
+
 
     return (
         <div className='p-6 h-screen flex flex-col justify-between'>
@@ -80,7 +108,7 @@ const UserSignup = () => {
                             required
                         />
                     </div>
-                    <button className='w-full mt-2 bg-black text-white font-medium py-2 rounded' type='submit'>Login</button>
+                    <button className='w-full mt-2 bg-black text-white font-medium py-2 rounded' type='submit'>Sign Up</button>
 
                     <Link to={'/login'}><p className='text-sm text-center'>Already have an account? <span className='font-bold text-black'>Login here</span></p></Link>
                 </form>

@@ -1,11 +1,49 @@
-import React from 'react';
+import React, { createContext, useState, useContext } from "react";
 
-const UserContext = ({ children }: { children: React.ReactNode }) => {
+// Define User interface
+interface User {
+    email: string;
+    fullName: {
+        firstName: string;
+        lastName: string;
+    };
+    // [key: string]: any; // Allows extra properties if needed
+}
+
+// Define Context type
+interface UserContextType {
+    user: User;
+    setUser: React.Dispatch<React.SetStateAction<User>>;
+}
+
+// Create context without default null value
+const UserDataContext = createContext<UserContextType | undefined>(undefined);
+
+// Custom hook to use UserContext safely
+export const useUserContext = () => {
+    const context = useContext(UserDataContext);
+    if (!context) {
+        throw new Error("useUserContext must be used within a UserProvider");
+    }
+    return context;
+};
+
+const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [user, setUser] = useState<User>({
+        email: "",
+        fullName: {
+            firstName: "",
+            lastName: "",
+        },
+    });
+
     return (
-        <div>
+        <UserDataContext.Provider value={{ user, setUser }}>
             {children}
-        </div>
+        </UserDataContext.Provider>
     );
 };
 
-export default UserContext;
+export default UserContextProvider;
+
+export { UserContextProvider };
