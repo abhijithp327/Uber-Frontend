@@ -36,6 +36,7 @@ const UserSignup = () => {
         if (response.status === 201) {
             const data = response.data;
             setUser(data?.result);
+            localStorage.setItem('token', data?.result.token);
             navigate('/home');
         }
     };
