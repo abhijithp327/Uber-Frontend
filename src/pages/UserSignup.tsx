@@ -38,7 +38,13 @@ const UserSignup = () => {
             setUser(data?.result);
             localStorage.setItem('token', data?.result.token);
             navigate('/home');
-        }
+        };
+
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        
     };
 
 
