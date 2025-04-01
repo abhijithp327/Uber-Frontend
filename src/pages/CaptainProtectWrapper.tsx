@@ -1,38 +1,44 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCaptainContext } from '../context/CaptainContext';
 
 const CaptainProtectWrapper = ({ children }: { children: React.ReactNode }) => {
-
-    const token = localStorage.getItem('token');
     const navigate = useNavigate();
+    const { setCaptain } = useCaptainContext();
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const [loading, setLoading] = React.useState(true);
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/captain/profile`, {
+                    withCredentials: true,
+                });
 
-    React.useEffect(() => {
-        if (!token) {
-            navigate("/captain-login");
-        }
-        const getCaptainProfile = async () => {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/captain/profile`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
+                console.log('response profile: ', response);
+
+                if (response.status === 200) {
+                    setCaptain(response.data.result);
+                    setIsAuthenticated(true);
                 }
-            });
-            if (response.status === 200) {
-                const data = await response.data;
-                console.log('data: ', data);
+            } catch (error) {
+                navigate('/captain-login'); // Redirect if authentication fails
+            } finally {
+                setIsLoading(false);
             }
-        }
-    }, [token, navigate]);
+        };
 
-    if (!token) return null;
+        checkAuth();
+    }, [navigate, setCaptain]);
 
-    return (
-        <>
-            {children}
-        </>
-    );
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div style={{ color: 'red' }}>{error}</div>;
+    if (!isAuthenticated) return null;
+
+    return <>{children}</>;
 };
+
 
 export default CaptainProtectWrapper;

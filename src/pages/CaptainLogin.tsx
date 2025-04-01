@@ -22,12 +22,14 @@ const CaptainLogin = () => {
             password
         };
 
-        const response = await axios.post(`${baseUrl}/captain/login`, userData);
-        console.log('response: ', response);
+        const response = await axios.post(`${baseUrl}/captain/login`, userData, {
+            withCredentials: true
+        });
+        // console.log('response: ', response);
         if (response.status === 200) {
             const data = response.data;
             setCaptain(data?.result);
-            localStorage.setItem('token', data?.result.token);
+            // localStorage.setItem('token', data?.result.token);
             navigate('/captain-home');
         }
     };

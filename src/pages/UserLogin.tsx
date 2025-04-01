@@ -21,12 +21,15 @@ const UserLogin = () => {
             password
         };
 
-        const response = await axios.post(`${baseUrl}/user/login`, userData);
+        const response = await axios.post(`${baseUrl}/user/login`, userData, {
+            withCredentials: true // ✅ Ensures cookies are sent and received
+        });
+        
         console.log('response: ', response);
         if (response.status === 200) {
             const data = response.data;
             setUser(data?.result);
-            localStorage.setItem('token', data?.result.token);
+            // localStorage.setItem('token', data?.result.token);
             navigate('/home');
         }
     };
