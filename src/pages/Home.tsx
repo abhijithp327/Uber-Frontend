@@ -2,6 +2,7 @@ import React from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import 'remixicon/fonts/remixicon.css';
+import LocationSearchPanel from '../components/LocationSearchPanel';
 
 
 
@@ -11,17 +12,20 @@ const Home = () => {
     const [pickup, setPickup] = React.useState<string>('');
     const [destination, setDestination] = React.useState<string>('');
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
+    const [hideArrow, setHideArrow] = React.useState<boolean>(true);
 
     const panelRef = React.useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (isOpen) {
+            setHideArrow(false);
             gsap.to(panelRef.current, {
                 height: '70%',
                 display: 'block', // Ensure it's visible
                 duration: 0.5,
             });
         } else {
+            setHideArrow(true);
             gsap.to(panelRef.current, {
                 height: '0%',
                 display: 'none', // Hide it completely
@@ -48,7 +52,7 @@ const Home = () => {
                 <div className='h-[30%] p-5 bg-white flex flex-col gap-3 relative'>
                     <div className='flex items-center justify-between'>
                         <h4 className='text-xl font-bold'>Find a trip</h4>
-                        <div className='bg-[#eee] w-7 h-7 rounded-full flex items-center justify-center' onClick={() => setIsOpen(false)}>
+                        <div className={`bg-[#eee] w-7 h-7 rounded-full flex items-center justify-center ${hideArrow ? 'hidden' : ''}`} onClick={() => setIsOpen(false)}>
                             <i className="text-xl ri-arrow-down-wide-line"></i>
                         </div>
                     </div>
@@ -72,8 +76,8 @@ const Home = () => {
                         />
                     </form>
                 </div>
-                <div ref={panelRef} className='h-[70%] p-5 bg-red-500'>
-
+                <div ref={panelRef} className='h-[70%] p-5 bg-white'>
+                    <LocationSearchPanel />
                 </div>
             </div>
 
