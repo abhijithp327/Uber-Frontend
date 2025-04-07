@@ -81,7 +81,7 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className='fixed w-full z-10 bottom-0 p-5 bg-white flex flex-col gap-4'>
+            <div className='fixed w-full z-10 bottom-0 translate-y-full p-5 bg-white flex flex-col gap-4'>
 
                 <div className='bg-white border flex items-center justify-between p-2 w-full rounded-lg hover:border-black hover:cursor-pointer hover:border-2'>
 
