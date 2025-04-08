@@ -13,8 +13,10 @@ const Home = () => {
     const [destination, setDestination] = React.useState<string>('');
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
     const [hideArrow, setHideArrow] = React.useState<boolean>(true);
+    const [vehiclePanelOpen, setVehiclePanelOpen] = React.useState<boolean>(false);
 
     const panelRef = React.useRef<HTMLDivElement>(null);
+    const vehiclePanelRef = React.useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (isOpen) {
@@ -35,6 +37,21 @@ const Home = () => {
     }, [isOpen]);
 
 
+    useGSAP(() => {
+
+        if (vehiclePanelOpen) {
+            gsap.to(vehiclePanelRef.current, {
+                transform: 'translateY(0)',
+            })
+        } else {
+            gsap.to(vehiclePanelRef.current, {
+                transform: 'translateY(100%)',
+            })
+        }
+
+    }, [vehiclePanelOpen]);
+
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
@@ -44,7 +61,7 @@ const Home = () => {
         <div className='h-screen relative'>
             <img className='w-16 absolute left-5 top-5' src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png" alt="logo" />
 
-            <div className='h-screen w-screen'>
+            <div onClick={() => setVehiclePanelOpen(false)} className='h-screen w-screen'>
                 <img className='h-full w-full object-cover' src="https://img.sfist.com/assets_c/2015/07/ubermapvisuals-thumb-640xauto-905052.png" alt="" />
             </div>
 
@@ -53,7 +70,7 @@ const Home = () => {
                     <div className='flex items-center justify-between'>
                         <h4 className='text-xl font-bold'>Find a trip</h4>
                         <div className={`bg-[#eee] w-7 h-7 rounded-full flex items-center justify-center ${hideArrow ? 'hidden' : ''}`} onClick={() => setIsOpen(false)}>
-                            <i className="text-xl ri-arrow-down-wide-line"></i>
+                            <i className="text-xl ri-arrow-down-wide-line font-semibold"></i>
                         </div>
                     </div>
                     <form className='relative flex flex-col gap-4' onSubmit={handleSubmit}>
@@ -77,11 +94,22 @@ const Home = () => {
                     </form>
                 </div>
                 <div ref={panelRef} className='h-[70%] p-5 bg-white'>
-                    <LocationSearchPanel />
+                    <LocationSearchPanel
+                        setIsOpen={setIsOpen}
+                        setVehiclePanelOpen={setVehiclePanelOpen} />
                 </div>
             </div>
 
-            <div className='fixed w-full z-10 bottom-0 translate-y-full p-5 bg-white flex flex-col gap-4'>
+            <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full p-5 bg-white flex flex-col gap-4'>
+
+                <div className='flex items-center justify-between'>
+                    <h4 className='text-xl font-bold'>Choose a vehicle</h4>
+                    <div className={`bg-[#eee] w-7 h-7 rounded-full flex items-center justify-center`}
+                        onClick={() => setVehiclePanelOpen(false)}
+                    >
+                        <i className="text-xl ri-arrow-down-wide-line font-semibold"></i>
+                    </div>
+                </div>
 
                 <div className='bg-white border flex items-center justify-between p-2 w-full rounded-lg hover:border-black hover:cursor-pointer hover:border-2'>
 
@@ -194,7 +222,8 @@ const Home = () => {
             </div>
 
 
-        </div>
+
+        </div >
     );
 };
 
